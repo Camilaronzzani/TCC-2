@@ -10,7 +10,7 @@
     <a href="#">Puma</a>
   </div>
   <div class="nav-right">
-    <a href="/login">Entrar</a>
+    <a href="login.php">Entrar</a>
     <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/126/126510.png" alt="Carrinho"></a>
   </div>
 </nav>
