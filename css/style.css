@@ -4,38 +4,47 @@ body {
   padding: 0;
 }
 
- /* CSS da barra de Navegação  */
+/* CSS da Barra de Navegação */
 nav {
-  background-color: white;
+  background-color: #fff;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .nav-left img {
   height: 60px;
 }
+
 .nav-center {
   display: flex;
   gap: 20px;
 }
+
 .nav-center a {
   text-decoration: none;
-  color: black;
+  color: black; 
   font-size: 14px;
   font-weight: 500;
+  transition: color 0.3s;
 }
+
 .nav-right {
   display: flex;
   align-items: center;
   gap: 20px;
 }
+
 .nav-right input {
   padding: 5px 15px;
   border-radius: 20px;
   outline: none;
   font-size: 14px;
+  border: 1px solid #ccc;
 }
+
 nav a {
   text-decoration: none;
   color: black;
@@ -44,32 +53,36 @@ nav a {
 nav a:hover {
   color: rgb(128, 128, 128);
 }
+
 .nav-right a img {
   height: 20px;
   width: 20px;
 }
 
 /* CSS do Footer */
-
 footer {
   background-color: #000;
   color: #fff;
-  padding: 40px ;
+  padding: 40px;
   display: flex;
   justify-content: space-between;
 }
+
 footer-section {
   flex: 1;
   margin-right: 40px;
 }
+
 .footer-section h4 {
   margin-bottom: 15px;
   font-size: 16px;
 }
+
 .payment-methods img {
   width: 40px;
   margin-right: 10px;
 }
+
 .store-links img {
   width: 130px;
   margin-top: 10px;
@@ -122,4 +135,87 @@ footer-section {
   .product-item {
     width: 100%; /* Para telas pequenas, 1 coluna */
   }
+}
+
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+  nav {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .nav-center {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .nav-right {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  footer {
+      flex-direction: column;
+  }
+
+  footer-section {
+      margin-right: 0;
+      margin-bottom: 20px;
+  }
+}
+
+/* Login */
+
+.input-group {
+  margin-bottom: 15px; 
+}
+
+label {
+  display: block;
+  margin-bottom: 5px; 
+  color: black;
+}
+
+input {
+  width: 100%;
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 10px; 
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+.login-container {
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  height: 70vh; 
+  background-color: #f0f0f0; 
+}
+
+.container {
+  width: 300px; 
+  background-color: white; 
+  padding: 30px;
+  border-radius: 8px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+h2 {
+  text-align: center; 
+  color:
 }
