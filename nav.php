@@ -1,3 +1,4 @@
+<?php include_once'conexao.php';?>
 <nav>
   <div class="nav-left">
     <a href="/">

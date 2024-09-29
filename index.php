@@ -13,7 +13,21 @@
     <?php include "nav.php" ?>
   </header>
   <main>
-    
+    <div class="product-grid">
+      <?php
+        $query = "SELECT * FROM tb_produtos ORDER BY data_cadastro DESC LIMIT 8";
+        $res = $pdo->query($query);
+        $produtos = $res->fetchAll();
+        foreach ($produtos as $produto){
+      ?>
+        <div class="product-item">
+          <img src="https://via.placeholder.com/250x250" alt="Chuteira Flexível Campo Predator Club">
+          <h4>R$ <?php echo $produto['preco'] ?></h4>
+          <p><?php echo $produto['nome'] ?></p>
+          <p><?php echo $produto['marca'] ?>, <?php echo $produto['cor'] ?>, <?php echo $produto['tamanho'] ?></p>
+        </div>
+      <?php } ?>
+    </div>
   </main>
   <footer>
     <?php include "footer.php" ?>

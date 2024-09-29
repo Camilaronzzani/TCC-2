@@ -74,3 +74,52 @@ footer-section {
   width: 130px;
   margin-top: 10px;
 }
+
+/* CSS do Body */
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; /* Distribui os produtos com espaço entre eles */
+  gap: 20px; /* Espaçamento entre os itens */
+  padding: 20px;
+}
+.product-item {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: calc(25% - 40px); /* Cada item terá 25% da largura, com espaço para o gap */
+}
+.product-item img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+.product-item h4 {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #e63946;
+}
+.product-item p {
+  font-size: 14px;
+  color: #555;
+}
+
+@media (max-width: 1200px) {
+  .product-item {
+    width: calc(33.33% - 40px); /* Ajuste para telas menores, 3 colunas */
+  }
+}
+
+@media (max-width: 768px) {
+  .product-item {
+    width: calc(50% - 40px); /* Ajuste para telas de tamanho médio, 2 colunas */
+  }
+}
+
+@media (max-width: 480px) {
+  .product-item {
+    width: 100%; /* Para telas pequenas, 1 coluna */
+  }
+}
