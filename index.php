@@ -18,6 +18,7 @@
         $query = "SELECT * FROM tb_produtos ORDER BY data_cadastro DESC LIMIT 8";
         $res = $pdo->query($query);
         $produtos = $res->fetchAll();
+        var_dump($produtos);
         foreach ($produtos as $produto){
       ?>
         <div class="product-item">
@@ -27,6 +28,11 @@
           <p><?php echo $produto['marca'] ?>, <?php echo $produto['cor'] ?>, <?php echo $produto['tamanho'] ?></p>
         </div>
       <?php } ?>
+      <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
     </div>
   </main>
   <footer>

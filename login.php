@@ -12,7 +12,7 @@
     <?php include "nav.php"; ?>
   </header>
   <main>
-    <div class="login-container"> <!-- Nova classe adicionada -->
+    <div class="login-container">
       <div class="container">
         <h2>Login</h2>
         <form action="login.php" method="POST">
