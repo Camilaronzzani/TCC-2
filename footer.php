@@ -21,6 +21,5 @@
   </div>
   <div class="store-links">
     <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/Available_on_the_App_Store_%28black%29.png" alt="App Store">
   </div>
 </div>

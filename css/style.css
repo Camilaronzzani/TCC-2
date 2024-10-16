@@ -214,3 +214,17 @@ button:hover {
   border-radius: 8px; 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
+
+.input-row {
+  display: flex;
+  justify-content: space-between; /* Para espaçar os campos */
+  gap: 20px; /* Espaçamento entre os campos */
+}
+
+.input-group {
+  flex: 1; /* Cada campo ocupa o mesmo espaço */
+}
+
+.input-group input {
+  width: 100%; /* Garantir que os campos preencham o espaço disponível */
+}

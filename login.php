@@ -35,3 +35,39 @@
   </footer>
 </body>
 </html>
+
+<?php
+session_start();
+
+require_once 'conexao.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+    if (!empty($email) && !empty($password)) {
+        $query = "SELECT * FROM tb_clientes WHERE email = :email";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($usuario && password_verify($password, $usuario['senha'])) {
+            $_SESSION['id_cliente'] = $usuario['id_cliente'];
+            $_SESSION['nome'] = $usuario['nome'];
+
+            header("Location: index.php");
+            exit;
+        } else {
+            $erro = "E-mail ou senha incorretos!";
+        }
+    } else {
+        $erro = "Por favor, pre todos os campos.";
+    }
+}
+
+if (isset($erro)) {
+    echo "<p style='color:red;'>$erro</p>";
+}
+?>
