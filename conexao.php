@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
 $dbname = 'tcc-2';
-$user = 'admin';
-$pass = 'root';
+$user = 'root';
+$pass = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
