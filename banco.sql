@@ -113,6 +113,7 @@ CREATE TABLE `tb_produtos` (
   `tamanho` varchar(10) DEFAULT NULL,
   `cor` varchar(30) DEFAULT NULL,
   `marca` varchar(50) DEFAULT NULL,
+  `imagem` TEXT DEFAULT NULL,
   `data_cadastro` date DEFAULT NULL,
   PRIMARY KEY (`id_produto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
