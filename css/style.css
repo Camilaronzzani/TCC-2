@@ -264,6 +264,15 @@ button:hover {
   text-align: center;
   width: calc(25% - 40px); /* Cada item terá 25% da largura, com espaço para o gap */
 }
+
+.brindes-item.selecionado {
+  background-color: #f0f0f0;
+  border: 2px solid #000;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
+}
+
+
 .brindes-item h4 {
   margin: 10px 0;
   font-size: 18px;
@@ -312,6 +321,15 @@ button:hover {
   float: right;
   font-size: 28px;
   font-weight: bold;
+}
+
+.mt-2{
+  margin-top:2em;
+}
+
+.selecionado {
+  border-width: 5px;
+  border-color: blue;
 }
 
 .close:hover,

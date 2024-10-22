@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($usuario && password_verify($password, $usuario['senha'])) {
             $_SESSION['id_cliente'] = $usuario['id_cliente'];
             $_SESSION['nome'] = $usuario['nome'];
+            $_SESSION['id_brinde'] = $usuario['id_brinde'];
 
             header("Location: index.php");
             exit;
