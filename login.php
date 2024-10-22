@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $erro = "E-mail ou senha incorretos!";
         }
     } else {
-        $erro = "Por favor, pre todos os campos.";
+        $erro = "Por favor, pre todos os campos.";        
     }
 }
 
