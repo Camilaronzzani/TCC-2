@@ -17,26 +17,22 @@
   <main class="container-fluid">
     <h2>Finalizar Compra</h2>
 
-    <!-- Seção de Revisão do Carrinho -->
     <div class="carrinho-review">
       <h3>Seu Carrinho</h3>
       <div class="product-grid" id="product-grid">
-        <!-- Exemplo de produto no carrinho -->
         <div class="buy-product-item">
         </div>
-        <!-- Repita para outros produtos do carrinho -->
       </div>
       <div class="total">
-        <h4 >Total: R$ <span id="total"></span></h4>
+        <h4>Total: R$ <span id="total"></span></h4>
       </div>
     </div>
 
-    <!-- Seção de Informações de Pagamento e Envio -->
     <div class="checkout-form">
       <h3>Informações de Pagamento e Envio</h3>
 
       <form action="comprar.php" method="POST" id="form">
-        <input type="hidden" name="id_cliente" value="<?php echo $_SESSION['id_cliente']?>" />
+        <input type="hidden" name="id_cliente" value="<?php echo $_SESSION['id_cliente'] ?>" />
         <input type="hidden" name="carrinho" id="carrinho-input">
         <!-- Informações de Envio -->
         <div class="input-group">
@@ -77,7 +73,7 @@
         <div class="input-row">
           <div class="input-group">
             <label for="cartao-expiracao">Data de Expiração</label>
-            <input type="text" id="cartao-expiracao" name="cartao-expiracao" required>
+            <input type="date" id="cartao-expiracao" name="cartao-expiracao" required>
           </div>
 
           <div class="input-group">
@@ -86,12 +82,12 @@
           </div>
         </div>
 
-        <?php if($_SESSION['id_cliente']) {?>
+        <?php if ($_SESSION['id_cliente']) { ?>
           <button type="submit">Finalizar Compra</button>
-        <?php }else{?>
+        <?php } else { ?>
           <p>Faça o Login para comprar</p>
         <?php } ?>
-        
+
       </form>
     </div>
   </main>
@@ -106,20 +102,20 @@
       const itemIndex = carrinho.findIndex(item => item.id === produtoId);
 
       if (itemIndex !== -1) {
-          if (carrinho[itemIndex].quantidade > 1) {
-              // Reduz a quantidade se for maior que 1
-              carrinho[itemIndex].quantidade -= 1;
-          } else {
-              // Remove o item completamente se a quantidade for 1
-              carrinho.splice(itemIndex, 1);
-          }
+        if (carrinho[itemIndex].quantidade > 1) {
+          // Reduz a quantidade se for maior que 1
+          carrinho[itemIndex].quantidade -= 1;
+        } else {
+          // Remove o item completamente se a quantidade for 1
+          carrinho.splice(itemIndex, 1);
+        }
 
-          salvarCarrinho(carrinho);  // Atualiza o carrinho no localStorage
-          atualizarQuantidadeCarrinho();  // Atualiza a quantidade exibida na interface
+        salvarCarrinho(carrinho); // Atualiza o carrinho no localStorage
+        atualizarQuantidadeCarrinho(); // Atualiza a quantidade exibida na interface
 
-          alert('Produto removido do carrinho!');
+        alert('Produto removido do carrinho!');
       } else {
-          alert('Produto não encontrado no carrinho.');
+        alert('Produto não encontrado no carrinho.');
       }
       renderizarCarrinho();
     }
@@ -137,20 +133,20 @@
     });
 
     function renderizarCarrinho() {
-    let carrinho = carregarCarrinho();
+      let carrinho = carregarCarrinho();
       if (carrinho.length > 0) {
         fetch('obter_produtos.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(carrinho),
-        })
-        .then(response => response.json())
-        .then(produtos => {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(carrinho),
+          })
+          .then(response => response.json())
+          .then(produtos => {
             let html = '';
             produtos.forEach(produto => {
-                html += `
+              html += `
                   <div class="buy-product-item">
                     <img src="/imagens/produtos/${produto.imagem}" alt="${produto.nome}" width="50">
                     <div class="product-details">
@@ -165,23 +161,21 @@
             });
             document.getElementById('product-grid').innerHTML = html;
             document.getElementById('total').innerHTML = produtos.reduce((total, item) => total + item.total, 0);
-        }).catch(error => {
-          console.error('Erro ao carregar o carrinho:', error);
-        });
+          }).catch(error => {
+            console.error('Erro ao carregar o carrinho:', error);
+          });
       } else {
-          alert('Seu carrinho está vazio.');
+        alert('Seu carrinho está vazio.');
       }
     }
 
     document.addEventListener("DOMContentLoaded", function() {
       renderizarCarrinho();
     });
-
   </script>
 </body>
 
 </html>
-
 <?php
 session_start();
 require_once 'conexao.php';
@@ -191,60 +185,67 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Dados de envio e pagamento
-    $id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $endereco = filter_input(INPUT_POST, 'endereco', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $cidade = filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $cep = filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $estado = filter_input(INPUT_POST, 'estado', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $cartaoNumero = filter_input(INPUT_POST, 'cartao-numero', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $cartaoExpiracao = filter_input(INPUT_POST, 'cartao-expiracao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $cartaoCVV = filter_input(INPUT_POST, 'cartao-cvv', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  // Dados de envio e pagamento
+  $id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $endereco = filter_input(INPUT_POST, 'endereco', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $cidade = filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $cep = filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $estado = filter_input(INPUT_POST, 'estado', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $cartaoNumero = filter_input(INPUT_POST, 'cartao-numero', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $cartaoExpiracao = filter_input(INPUT_POST, 'cartao-expiracao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $cartaoCVV = filter_input(INPUT_POST, 'cartao-cvv', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    // Carrinho de compras
-    $carrinho = json_decode($_POST['carrinho'], true);
+  // Carrinho de compras
+  $carrinho = json_decode($_POST['carrinho'], true);
 
-    if (!empty($id_cliente) && !empty($nome) && !empty($endereco) && !empty($cidade) && !empty($cep) && !empty($estado) && !empty($carrinho)) {
-        try {
-            $pdo->beginTransaction();
+  if (!empty($id_cliente) && !empty($nome) && !empty($endereco) && !empty($cidade) && !empty($cep) && !empty($estado) && !empty($carrinho)) {
+    try {
+      $pdo->beginTransaction();
 
-            // 1. Inserir o pedido na tabela `tb_pedidos`
-            $queryPedido = "INSERT INTO tb_vendas (id_cliente, nome, endereco, cidade, cep, estado, data_venda) 
+      // 1. Inserir o pedido na tabela `tb_pedidos`
+      $queryPedido = "INSERT INTO tb_vendas (id_cliente, nome, endereco, cidade, cep, estado, data_venda) 
                             VALUES (:id_cliente, :nome, :endereco, :cidade, :cep, :estado, NOW())";
-            $stmtPedido = $pdo->prepare($queryPedido);
-            $stmtPedido->bindParam(':id_cliente', $id_cliente);
-            $stmtPedido->bindParam(':nome', $nome);
-            $stmtPedido->bindParam(':endereco', $endereco);
-            $stmtPedido->bindParam(':cidade', $cidade);
-            $stmtPedido->bindParam(':cep', $cep);
-            $stmtPedido->bindParam(':estado', $estado);
-            $stmtPedido->execute();
-            
-            // Obter o ID do pedido recém-criado
-            $pedidoId = $pdo->lastInsertId();
+      $stmtPedido = $pdo->prepare($queryPedido);
+      $stmtPedido->bindParam(':id_cliente', $id_cliente);
+      $stmtPedido->bindParam(':nome', $nome);
+      $stmtPedido->bindParam(':endereco', $endereco);
+      $stmtPedido->bindParam(':cidade', $cidade);
+      $stmtPedido->bindParam(':cep', $cep);
+      $stmtPedido->bindParam(':estado', $estado);
+      $stmtPedido->execute();
 
-            // 2. Inserir os itens do pedido na tabela `tb_itens_pedido`
-            $queryItem = "INSERT INTO tb_itens_vendas (id_venda, id_produto, quantidade, preco_unitario) 
+      // Obter o ID do pedido recém-criado
+      $pedidoId = $pdo->lastInsertId();
+
+      // 2. Inserir os itens do pedido na tabela `tb_itens_pedido`
+      $queryItem = "INSERT INTO tb_itens_vendas (id_venda, id_produto, quantidade, preco_unitario) 
                           VALUES (:id_pedido, :id_produto, :quantidade, :preco_unitario)";
-            $stmtItem = $pdo->prepare($queryItem);
+      $stmtItem = $pdo->prepare($queryItem);
 
-            foreach ($carrinho as $item) {
-                $stmtItem->bindParam(':id_pedido', $pedidoId);
-                $stmtItem->bindParam(':id_produto', $item['id']);
-                $stmtItem->bindParam(':quantidade', $item['quantidade']);
-                $stmtItem->bindParam(':preco_unitario', $item['preco_unitario']);
-                $stmtItem->execute();
-            }
+      foreach ($carrinho as $item) {
+        $stmtItem->bindParam(':id_pedido', $pedidoId);
+        $stmtItem->bindParam(':id_produto', $item['id']);
+        $stmtItem->bindParam(':quantidade', $item['quantidade']);
+        $stmtItem->bindParam(':preco_unitario', $item['preco_unitario']);
+        $stmtItem->execute();
 
-            $pdo->commit();
-            echo "<p>Compra finalizada com sucesso!</p>";
-        } catch (Exception $e) {
-            $pdo->rollBack();
-            echo "<p style='color:red;'>Erro ao finalizar a compra: " . $e->getMessage() . "</p>";
-        }
-    } else {
-        echo "<p style='color:red;'>Por favor, preencha todas as informações.</p>";
+        // 3. Atualizar o estoque após inserir o item do pedido
+        $queryEstoque = "UPDATE tb_estoque SET quantidade = quantidade - :quantidade WHERE id_produto = :id_produto";
+        $stmtEstoque = $pdo->prepare($queryEstoque);
+        $stmtEstoque->bindParam(':quantidade', $item['quantidade']);
+        $stmtEstoque->bindParam(':id_produto', $item['id']);
+        $stmtEstoque->execute();
+      }
+
+      $pdo->commit();
+
+      echo "<script>window.location.href='pedido.php';</script>";
+      exit();
+    } catch (Exception $e) {
+      $pdo->rollBack();
+      echo "<p style='color:red;'>Erro ao finalizar a compra: " . $e->getMessage() . "</p>";
     }
+  }
 }
 ?>

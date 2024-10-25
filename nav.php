@@ -20,6 +20,7 @@
         <button class="dropbtn"><?php echo htmlspecialchars($_SESSION['nome']); ?></button>
         <div class="dropdown-content">
           <a href="logout.php">Logout</a>
+          <a href="meus_pedidos.php">Meus Pedidos</a>
         </div>
       </div>
     <?php } else { ?>

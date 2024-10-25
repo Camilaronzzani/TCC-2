@@ -35,15 +35,6 @@ CREATE TABLE `tb_brindes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_brindes`
---
-
-LOCK TABLES `tb_brindes` WRITE;
-/*!40000 ALTER TABLE `tb_brindes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_brindes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tb_clientes`
 --
 
@@ -70,13 +61,6 @@ CREATE TABLE `tb_clientes` (
 -- Dumping data for table `tb_clientes`
 --
 
-LOCK TABLES `tb_clientes` WRITE;
-/*!40000 ALTER TABLE `tb_clientes` DISABLE KEYS */;
-INSERT INTO `tb_clientes` VALUES
-(1,'teste','nelson@gmail.com','123',NULL,'$2y$10$.n7L48EJFg0DaxC/7HIc8eYWVqTDXfCASf.6sCqT5BY5WflOXZNke',NULL,'2024-10-25');
-/*!40000 ALTER TABLE `tb_clientes` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `tb_estoque`
 --
@@ -100,16 +84,6 @@ CREATE TABLE `tb_estoque` (
 -- Dumping data for table `tb_estoque`
 --
 
-LOCK TABLES `tb_estoque` WRITE;
-/*!40000 ALTER TABLE `tb_estoque` DISABLE KEYS */;
-INSERT INTO `tb_estoque` VALUES
-(1,1,66,'entrada','2024-10-25 15:17:28'),
-(2,2,66,'entrada','2024-10-25 15:17:31'),
-(3,3,66,'entrada','2024-10-25 15:17:34');
-/*!40000 ALTER TABLE `tb_estoque` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tb_itens_vendas`
 --
 
@@ -129,18 +103,6 @@ CREATE TABLE `tb_itens_vendas` (
   CONSTRAINT `tb_itens_vendas_ibfk_2` FOREIGN KEY (`id_produto`) REFERENCES `tb_produtos` (`id_produto`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_itens_vendas`
---
-
-LOCK TABLES `tb_itens_vendas` WRITE;
-/*!40000 ALTER TABLE `tb_itens_vendas` DISABLE KEYS */;
-INSERT INTO `tb_itens_vendas` VALUES
-(1,3,1,1,31.00),
-(2,3,2,1,31.00);
-/*!40000 ALTER TABLE `tb_itens_vendas` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_produtos`
@@ -164,19 +126,6 @@ CREATE TABLE `tb_produtos` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_produtos`
---
-
-LOCK TABLES `tb_produtos` WRITE;
-/*!40000 ALTER TABLE `tb_produtos` DISABLE KEYS */;
-INSERT INTO `tb_produtos` VALUES
-(1,'In incididunt est n','Blanditiis eaque sit',31.00,'12','Minim sit a sunt dol','Adidas','img_671bb68841d8f.jpg','2024-10-25'),
-(2,'In incididunt est n','Blanditiis eaque sit',31.00,'12','Minim sit a sunt dol','Adidas','img_671bb68becc99.jpg','2024-10-25'),
-(3,'In incididunt est n','Blanditiis eaque sit',31.00,'12','Minim sit a sunt dol','Adidas','img_671bb68e5bac7.jpg','2024-10-25');
-/*!40000 ALTER TABLE `tb_produtos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tb_vendas`
 --
 
@@ -197,18 +146,6 @@ CREATE TABLE `tb_vendas` (
   CONSTRAINT `tb_vendas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `tb_clientes` (`id_cliente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_vendas`
---
-
-LOCK TABLES `tb_vendas` WRITE;
-/*!40000 ALTER TABLE `tb_vendas` DISABLE KEYS */;
-INSERT INTO `tb_vendas` VALUES
-(3,1,'Odit eum quod quisqu','Amet ipsam laborum','Consectetur possimu','Laboriosam laboris ','Aut vero commodi bla','2024-10-25 15:56:34');
-/*!40000 ALTER TABLE `tb_vendas` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Dumping routines for database 'tcc-2'
 --
