@@ -19,8 +19,10 @@
 
     <?php
         $query = "SELECT * FROM tb_brindes ORDER BY data_cadastro DESC LIMIT 3";
-        $res = $pdo->query($query);
+        $stmt = $pdo->prepare($query);
         $brindes = $res->fetchAll();
+        $stmt->execute();
+        $produtos = $stmt->fetchAll();
         foreach ($brindes as $brinde){
       ?>
         <div class="brindes-item <?php echo ($_SESSION['id_brinde'] == $brinde['id_brinde'])?'selecionado':''; ?>" onclick="openModal('modal<?php echo $brinde['id_brinde'] ?>')" >

@@ -41,8 +41,8 @@
             <p><?php echo htmlspecialchars($produto['marca']); ?>, <?php echo htmlspecialchars($produto['cor']); ?>, <?php echo htmlspecialchars($produto['tamanho']); ?></p>
           </a>
 
-          <button onclick="comprarProduto(<?php echo $produto['id']; ?>)">Comprar</button>
-          <button onclick="adicionarAoCarrinho(<?php echo $produto['id']; ?>)">Adicionar ao Carrinho</button>
+          <button onclick="comprarProduto(<?php echo $produto['id_produto']; ?>)">Comprar</button>
+          <button onclick="adicionarAoCarrinho(<?php echo $produto['id_produto']; ?>,  <?php echo $produto['preco']; ?>)">Adicionar ao Carrinho</button>
         </div>
       <?php } ?>
     </div>
@@ -53,12 +53,37 @@
 
   <script>
     function comprarProduto(produtoId) {
+      adicionarAoCarrinho(produtoId);
       window.location.href = 'comprar.php?id=' + produtoId;
     }
 
-    function adicionarAoCarrinho(produtoId) {
-      alert('Produto ' + produtoId + ' adicionado ao carrinho!'); 
+    // Adiciona um item ao carrinho e salva no localStorage
+    function adicionarAoCarrinho(produtoId, preco) {
+      const carrinho = carregarCarrinho();
+
+      // Verifica se o produto já está no carrinho
+      const itemExistente = carrinho.find(item => item.id === produtoId);
+
+      if (itemExistente) {
+          // Se o produto já existe, aumenta a quantidade
+          itemExistente.quantidade += 1;
+      } else {
+          // Se o produto não está no carrinho, adiciona com quantidade 1
+          const item = {
+              id: produtoId,
+              quantidade: 1,
+              preco_unitario: preco
+          };
+          carrinho.push(item);
+      }
+
+      salvarCarrinho(carrinho);
+      atualizarQuantidadeCarrinho();
+
+      alert('Produto adicionado ao carrinho!');
     }
+
+
   </script>
 </body>
 </html>

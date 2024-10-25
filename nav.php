@@ -24,7 +24,33 @@
       </div>
     <?php } else { ?>
       <a href="login.php">Entrar</a>
-    <?php } ?>
-    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/126/126510.png" alt="Carrinho"></a>
+    <?php } ?>     
+    <a href="comprar.php"><img src="https://cdn-icons-png.flaticon.com/512/126/126510.png" alt="Carrinho">(<span id="quanti-carrinho">0</span>)</a>
   </div>
 </nav>
+
+<script>
+
+  // Carrega o carrinho do localStorage ou inicializa como um array vazio
+  function carregarCarrinho() {
+    const carrinho = localStorage.getItem('carrinho');
+    return carrinho ? JSON.parse(carrinho) : [];
+  }
+
+  // Salva o carrinho no localStorage
+  function salvarCarrinho(carrinho) {
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    atualizarQuantidadeCarrinho();
+  });
+
+  function atualizarQuantidadeCarrinho() {
+    const carrinho = carregarCarrinho();
+    const quantidadeTotal = carrinho.reduce((total, item) => total + item.quantidade, 0);
+
+    // Atualiza o link da navbar com a quantidade de itens no carrinho
+    document.getElementById('quanti-carrinho').textContent = quantidadeTotal;
+  }
+</script>
