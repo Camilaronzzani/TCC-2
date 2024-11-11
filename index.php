@@ -42,7 +42,7 @@
           </a>
 
           <button onclick="comprarProduto(<?php echo $produto['id_produto']; ?>)">Comprar</button>
-          <button onclick="adicionarAoCarrinho(<?php echo $produto['id_produto']; ?>,  <?php echo $produto['preco']; ?>)">Adicionar ao Carrinho</button>
+          <button onclick="adicionarAoCarrinho(<?php echo $produto['id_produto']; ?>, <?php echo $produto['preco']; ?>)">Adicionar ao Carrinho</button>
         </div>
       <?php } ?>
     </div>
@@ -53,37 +53,42 @@
 
   <script>
     function comprarProduto(produtoId) {
-      adicionarAoCarrinho(produtoId);
+      adicionarAoCarrinho(produtoId, null, false);
       window.location.href = 'comprar.php?id=' + produtoId;
     }
 
-    // Adiciona um item ao carrinho e salva no localStorage
-    function adicionarAoCarrinho(produtoId, preco) {
+    function adicionarAoCarrinho(produtoId, preco, mostrarNotificacao = true) {
       const carrinho = carregarCarrinho();
 
-      // Verifica se o produto já está no carrinho
       const itemExistente = carrinho.find(item => item.id === produtoId);
 
       if (itemExistente) {
-          // Se o produto já existe, aumenta a quantidade
-          itemExistente.quantidade += 1;
+        itemExistente.quantidade += 1;
       } else {
-          // Se o produto não está no carrinho, adiciona com quantidade 1
-          const item = {
-              id: produtoId,
-              quantidade: 1,
-              preco_unitario: preco
-          };
-          carrinho.push(item);
+        const item = {
+          id: produtoId,
+          quantidade: 1,
+          preco_unitario: preco
+        };
+        carrinho.push(item);
       }
 
       salvarCarrinho(carrinho);
       atualizarQuantidadeCarrinho();
 
-      alert('Produto adicionado ao carrinho!');
+      if (mostrarNotificacao) {
+        const notification =  alert('Produto adicionado ao carrinho!');
+        notification.style.display = 'block';
+        notification.classList.remove('hidden');
+        setTimeout(() => {
+          notification.classList.add('hidden');
+          setTimeout(() => {
+            notification.style.display = 'none';
+          }, 500);
+        }, 2000);
+      }
     }
-
-
   </script>
 </body>
+
 </html>

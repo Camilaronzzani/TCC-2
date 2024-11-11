@@ -3,7 +3,7 @@ session_start();
 include 'conexao.php';
 
 if (!isset($_SESSION['id_cliente'])) {
-    header('Location: login.php'); 
+    header('Location: login.php');
     exit();
 }
 
@@ -15,17 +15,19 @@ $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <title>Meus Pedidos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Meus Pedidos</title>
 </head>
+
 <body>
-  <header>
-    <!-- Navbar -->
-    <?php include "nav.php"; ?>
-  </header>
+    <header>
+        <!-- Navbar -->
+        <?php include "nav.php"; ?>
+    </header>
     <?php if (empty($pedidos)): ?>
         <p>Você ainda não fez nenhum pedido.</p>
     <?php else: ?>
@@ -45,20 +47,20 @@ $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($pedidos as $pedido): ?>
                     <tr>
                         <td><?php echo $pedido['id_venda']; ?></td>
-                        <td><?php echo htmlspecialchars($pedido['nome']); ?></td>
-                        <td><?php echo htmlspecialchars($pedido['endereco']); ?></td>
-                        <td><?php echo htmlspecialchars($pedido['cidade']); ?></td>
+                        <td><?php echo htmlspecialchars(html_entity_decode($pedido['nome'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars(html_entity_decode($pedido['endereco'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars(html_entity_decode($pedido['cidade'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8'); ?></td>
                         <td><?php echo htmlspecialchars($pedido['cep']); ?></td>
-                        <td><?php echo htmlspecialchars($pedido['estado']); ?></td>
+                        <td><?php echo htmlspecialchars(html_entity_decode($pedido['estado'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8'); ?></td>
                         <td><?php echo date('d/m/Y H:i', strtotime($pedido['data_venda'])); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php endif; ?>
-</div>
- <footer>
+    <footer>
         <?php include "footer.php"; ?>
     </footer>
 </body>
-</html>
+
+</html> 

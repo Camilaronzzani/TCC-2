@@ -103,15 +103,13 @@
 
       if (itemIndex !== -1) {
         if (carrinho[itemIndex].quantidade > 1) {
-          // Reduz a quantidade se for maior que 1
           carrinho[itemIndex].quantidade -= 1;
         } else {
-          // Remove o item completamente se a quantidade for 1
           carrinho.splice(itemIndex, 1);
         }
 
-        salvarCarrinho(carrinho); // Atualiza o carrinho no localStorage
-        atualizarQuantidadeCarrinho(); // Atualiza a quantidade exibida na interface
+        salvarCarrinho(carrinho);
+        atualizarQuantidadeCarrinho();
 
         alert('Produto removido do carrinho!');
       } else {
@@ -121,14 +119,12 @@
     }
 
     document.getElementById('form').addEventListener('submit', function(event) {
-      event.preventDefault(); // Previne o envio padrão para adicionar os dados do carrinho
+      event.preventDefault();
 
-      const carrinho = carregarCarrinho(); // Função que carrega o carrinho do localStorage
+      const carrinho = carregarCarrinho();
 
-      // Serializa o carrinho para JSON e insere no campo oculto
       document.getElementById('carrinho-input').value = JSON.stringify(carrinho);
 
-      // Agora, envia o formulário
       this.submit();
     });
 
@@ -177,6 +173,13 @@
 
 </html>
 <?php
+if (isset($_GET['id'])) {
+  $produtoId = $_GET['id'];
+} else {
+  echo "Produto não encontrado.";
+}
+?>
+<?php
 session_start();
 require_once 'conexao.php';
 
@@ -185,7 +188,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Dados de envio e pagamento
   $id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $endereco = filter_input(INPUT_POST, 'endereco', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -196,14 +198,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $cartaoExpiracao = filter_input(INPUT_POST, 'cartao-expiracao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $cartaoCVV = filter_input(INPUT_POST, 'cartao-cvv', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-  // Carrinho de compras
   $carrinho = json_decode($_POST['carrinho'], true);
 
   if (!empty($id_cliente) && !empty($nome) && !empty($endereco) && !empty($cidade) && !empty($cep) && !empty($estado) && !empty($carrinho)) {
     try {
       $pdo->beginTransaction();
 
-      // 1. Inserir o pedido na tabela `tb_pedidos`
       $queryPedido = "INSERT INTO tb_vendas (id_cliente, nome, endereco, cidade, cep, estado, data_venda) 
                             VALUES (:id_cliente, :nome, :endereco, :cidade, :cep, :estado, NOW())";
       $stmtPedido = $pdo->prepare($queryPedido);
@@ -215,10 +215,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $stmtPedido->bindParam(':estado', $estado);
       $stmtPedido->execute();
 
-      // Obter o ID do pedido recém-criado
       $pedidoId = $pdo->lastInsertId();
 
-      // 2. Inserir os itens do pedido na tabela `tb_itens_pedido`
       $queryItem = "INSERT INTO tb_itens_vendas (id_venda, id_produto, quantidade, preco_unitario) 
                           VALUES (:id_pedido, :id_produto, :quantidade, :preco_unitario)";
       $stmtItem = $pdo->prepare($queryItem);
@@ -230,7 +228,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmtItem->bindParam(':preco_unitario', $item['preco_unitario']);
         $stmtItem->execute();
 
-        // 3. Atualizar o estoque após inserir o item do pedido
         $queryEstoque = "UPDATE tb_estoque SET quantidade = quantidade - :quantidade WHERE id_produto = :id_produto";
         $stmtEstoque = $pdo->prepare($queryEstoque);
         $stmtEstoque->bindParam(':quantidade', $item['quantidade']);

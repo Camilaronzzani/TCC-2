@@ -21,17 +21,21 @@
         <div class="dropdown-content">
           <a href="logout.php">Logout</a>
           <a href="meus_pedidos.php">Meus Pedidos</a>
+
+          <?php if ($_SESSION['id_cliente'] == 1): ?>
+            <a href="relatorios.php">Relatórios</a>
+          <?php endif; ?>
         </div>
       </div>
+
     <?php } else { ?>
       <a href="login.php">Entrar</a>
-    <?php } ?>     
+    <?php } ?>
     <a href="comprar.php"><img src="https://cdn-icons-png.flaticon.com/512/126/126510.png" alt="Carrinho">(<span id="quanti-carrinho">0</span>)</a>
   </div>
 </nav>
 
 <script>
-
   // Carrega o carrinho do localStorage ou inicializa como um array vazio
   function carregarCarrinho() {
     const carrinho = localStorage.getItem('carrinho');
@@ -42,7 +46,7 @@
   function salvarCarrinho(carrinho) {
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
   }
-  
+
   document.addEventListener('DOMContentLoaded', () => {
     atualizarQuantidadeCarrinho();
   });
